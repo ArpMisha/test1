@@ -1,0 +1,73 @@
+{%extends 'base.html'%}
+
+{%block title%}
+ Добавить сеть
+{%endblock%}
+
+{%block main%}
+<div class = "container-fluid">
+    <h2 class = "text-center mb-3">Добавить компоненты ККС</h2>
+    <div class = "row">
+      <div class = "col-lg-6 md-3">
+          <div class = "card col-lg-9 mb-3 border-primary">
+            <div class="card-body">
+              <h4 class="card-title">Добавить сеть</h4>
+              <form action="{{ url_for('kks.net_create') }}" method="POST" name="form">
+                <div class = "form-group col-lg-8">
+                  {{ form.mask.label}} {{ form.mask(class="form-control", placeholder="/29")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form.ip.label }} {{ form.ip(class = "form-control", placeholder="10.10.10.0", pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form.getway.label }} {{ form.getway(class = "form-control", placeholder="10.10.10.1", pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form.vlan.label }} {{ form.vlan(class = "form-control")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form.vlan_name.label }} {{ form.vlan_name(class = "form-control")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form.filial.label }} {{ form.filial(class = "form-control")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form.ploshadka.label }} {{ form.ploshadka(class = "form-control")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form.ploshadka_det.label }} {{ form.ploshadka_det(class = "form-control")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form.Submit_1(class="btn btn-primary")}}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class = "col-lg-6 md-3">
+          <div class = "card col-lg-9 mb-3 border-primary">
+            <div class="card-body">
+              <h4 class="card-title">Добавить ИС</h4>
+              <form action="{{ url_for('kks.net_create') }}" method="POST" name="form2">
+                <div class = "form-group col-lg-8">
+                  {{ form2.kr_name.label }} {{ form2.kr_name(class = "form-control")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form2.name.label }} {{ form2.name(class = "form-control")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form2.kategor.label }} {{ form2.kategor(class = "form-control")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form2.tip.label }} {{ form2.tip(class = "form-control")}}
+                </div>
+                <div class = "form-group col-lg-8">
+                  {{ form2.Submit_2(class="btn btn-primary")}}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

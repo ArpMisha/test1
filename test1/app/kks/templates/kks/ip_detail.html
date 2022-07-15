@@ -1,0 +1,79 @@
+{%extends 'base.html'%}
+
+{%block title%}
+ Инфо по IP-адресу
+{%endblock%}
+
+
+{%block main%}
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}" defer></script>
+<div class = 'container-fluid'>
+    <h1 class = "text-center mb-3"></h1>
+    <div class = 'row'>
+        <div class = 'col-lg-6'>
+            <div class="card col-lg-10 border-primary mb-3">
+                <div class="card-body">
+                    <h4 class="card-title"> Инвинтаризация IP-адреса </h4>
+                    {% for ip_metr in ip_metrik%}
+                    <div class = "list-group col-lg-10 mb-3">
+                        <li class="list-group-item list-group-item-primary"><h5>IP-адрес --- <span class="badge badge-primary">{{ip_metr.ip}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5> Время сканирования --- <span  class="badge badge-primary">{{ip_metr.host_time}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5>FQDN --- <span  class="badge badge-primary">{{ip_metr.fqdn}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5>NETBIOS --- <span  class="badge badge-primary">{{ip_metr.netbios}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5>ping --- <span  class="badge badge-primary">{{ip_metr.ping}}</span></h5></li>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class = 'col-lg-6'>
+            <div class="card col-lg-10 border-primary mb-3">
+                <div class="card-body">
+                    <h4 class="card-title"> <a type="button" class="btn btn-outline-primary" href="{{ url_for('kks.ip_detail', ip_detail = x2.id) }}">{{x2.ip}}</a> >>> {{ipp.ip}} >>> <a type="button" class="btn btn-outline-primary" href="{{ url_for('kks.ip_detail', ip_detail = x1.id) }}">{{x1.ip}}</a> </h4>
+                    <div class = "list-group col-lg-10">
+                        <li class="list-group-item list-group-item-primary"><h5>IP-адрес --- <span class="badge badge-primary">{{ipp.ip}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5> DNS имя --- <span  class="badge badge-primary">{{ipp.name}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5>VLAN --- <span  class="badge badge-primary"> {{ipp.vlan}} </span> <span  class="badge badge-primary">{{ipp.vlan_name}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5> Информационная система (если есть) --- </h5>
+                            {% for iss in isy%}
+                                <a type="button" class="btn btn-primary" href="{{ url_for('kks.is_det', is_det = iss.id) }}">{{iss.name}}</a>
+                            {% endfor %}
+                        </li>
+                        <li class="list-group-item list-group-item-primary"><h5>Сеть --- <span  class="badge badge-primary">{{ipp.subnet}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5>GetWay --- <span  class="badge badge-primary">{{ipp.getway}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5>Broadcast --- <span  class="badge badge-primary">{{ipp.broadcast}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5>Филиал --- <span  class="badge badge-primary">{{ipp.filial}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5>Площадка --- <span  class="badge badge-primary">{{ipp.ploshadka}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5>Расположение на пложадке --- <span  class="badge badge-primary">{{ipp.ploshadka_det}}</span></h5></li>
+                        <li class="list-group-item list-group-item-primary"><h5>Комментарий <span  class="badge badge-primary">{{ipp.primech}}</span></h5></li>
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                              <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                  <button class="btn btn-success text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Добавить/Изменить
+                                  </button>
+                                </h2>
+                              </div>
+                              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <form action="{{ url_for('kks.ip_detail', ip_detail = ipp.id) }}", method="POST">
+                                        <div class = "form-group col-lg-8">
+                                            {{ form.name.label }} {{ form.name(class = "form-control")}}
+                                        </div>
+                                        <div class = "form-group col-lg-8">
+                                            {{ form.primech.label }} {{ form.primech(class = "form-control")}}
+                                        </div>
+                                        <button type="submit" class="btn btn-success">Добавить</button>
+                                      </form>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

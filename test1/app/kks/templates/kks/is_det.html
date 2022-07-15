@@ -1,0 +1,109 @@
+{%extends 'base.html'%}
+
+
+{%block title%}
+ Инфо по ИС
+{%endblock%}
+
+{%block main%}
+<!-- bootstrap -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}" defer></script>
+<script src="{{url_for('static', filename='js/popper.min.js')}}" async></script>
+<script src="{{url_for('static', filename='js/jquery-3.3.1.slim.min.js')}}" defer></script>
+<!-- bootstrap -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/Chart.min.css')}}"> 
+<script src="{{url_for('static', filename='js/Chart.min.js')}}" async></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/Chart.css')}}"> 
+<script src="{{url_for('static', filename='js/Chart.js')}}" defer></script>
+<script src="{{url_for('static', filename='js/Chart.bundle.js')}}" defer></script>
+<script src="{{url_for('static', filename='js/Chart.bundle.min.js')}}" async></script>
+<!-- bootstrap -->
+<div class="container-fluid">
+    <h2 class = "text-center mb-3">Полная информация по ИС - {{isss.kr_name}}</h2>
+    <div class="row justify-content-center">
+        <div class="card col-lg-11 mb-3 border-primary">
+            <div class="card-body">
+                <table class ="table table-bordered table-hover table-sm">
+                    <tr><td class="table-primary">Краткое наименование ИС</td> <td>{{isss.kr_name}}</td></tr>
+                    <tr><td class="table-primary">Полное наименование ИС</td><td>{{isss.name}}</td></tr>
+                    <tr><td class="table-primary">Сервера<br>
+                        <form method="GET">
+                            <div class = "form-group col-lg-8">
+                                <input type="text" class="form-control col-lg-4" id = "inputAddress" placeholder="Введите IP" name="q2" value="{{ request.args.get('q2', '') }}">
+                                <button type ="submit" class="btn btn-success">Добавить</button>
+                            </div>
+                        </form> 
+                    </td><td>
+                        {% for ip in ipy%}
+                        <a href="{{ url_for('kks.ip_detail', ip_detail = ip.id)  }}">{{ip.ip}}</a> <br>
+                        {% endfor %}
+                    </td></tr>
+                    <tr><td class="table-primary">Тип ИС (локальная/корпоративная)</td><td>{{isss.tip}}</td></tr>
+                    <tr><td class="table-primary">Категория обробарываемой информации (к/кт/ПНд)</td><td>{{isss.kategor}}</td></tr>
+                    <tr><td class="table-primary">Назначение ИС (прикладная/инфраструктурная/СЗИ)</td><td>{{isss.naznach}}</td></tr>
+                    <tr><td class="table-primary">Дата ввода ИС в ПЭ</td><td>{{isss.data_vvoda}}</td></tr>
+                    <tr><td class="table-primary">Наименование организации (подразделения), отвечающего за ИС</td><td>{{isss.zakazchik}}</td></tr>
+                    <tr><td class="table-primary">Дата последнего проведения ИБ ИС</td><td>{{isss.data_ib}}</td></tr>
+                    <tr><td class="table-primary">Примечание</td><td>{{isss.primech}}</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="card col-lg-10 mb-3 border-primary">
+            <div class="card-body">
+                <form action="{{ url_for('kks.is_det', is_det = isss.id) }}", method="POST">
+                    <div class = "form-group col-lg-8">
+                        {{ form.name.label }} {{ form.name(class = "form-control")}}
+                    </div>
+                    <div class = "form-group col-lg-8">
+                        {{ form.kr_name.label }} {{ form.kr_name(class = "form-control")}}
+                    </div>
+                    <button type="submit" class="btn btn-success">Внести изменения</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        {% for item1 in test1 %}
+        <div class="card col-lg-10 mb-3 border-primary">
+            <div class="card-body"> 
+                <canvas id="myChart"></canvas>
+            </div>
+            <script>
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [ 
+                                {% for item11 in item1[0] %}
+                                "{{item11}}",
+                                {% endfor %}
+                                ],
+                        datasets: [{
+                            label: '# CVSS',
+                            data: [
+                                {% for item12 in item1[1] %}
+                                "{{item12}}",
+                                {% endfor %}
+                                ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            </script>
+        </div>
+        {% endfor %}
+    </div>  
+</div>
+{%endblock%}

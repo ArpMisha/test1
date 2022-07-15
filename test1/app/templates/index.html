@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+
+{%block title%}
+ Главная страница
+{%endblock%}
+
+{%block main%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/fullcalendar.css')}}"> 
+<!--<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}"> -->
+<!--<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script> -->
+<!--<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script> -->
+<script src="{{url_for('static', filename='js/jquery-ui.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/moment.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/fullcalendar.min.js')}}"></script> 
+
+
+<br /><h2 >Календарь ОИБ</h2><br />
+<script>
+    $(document).ready(function() {
+        var calendar = $('#calendar').fullCalendar({
+            editable:true,
+            header:{
+            left:'prev,next today',
+            center:'title',
+            right:'month,agendaWeek,agendaDay'
+            },
+            events: [ 
+                {    title : " err ", 
+                     start : " 2021-09-20 "},
+                
+             ],
+        });
+    });
+</script>
+<div class="container">
+    <div id="calendar"></div>
+</div>
+
+{%endblock%}

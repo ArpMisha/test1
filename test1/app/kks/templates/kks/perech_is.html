@@ -1,0 +1,35 @@
+{%extends 'base.html'%}
+
+{%block title%}
+  Перечень ИС
+{%endblock%}
+
+
+{%block main%}
+    <div class = "container-fluid">
+        <h2 class = "text-center mb-3">Информационные Системы ККС</h2>
+        <div class="card-body">
+            <table class ="table table-bordered table-hover table-sm">
+            <thead>
+                <tr class="table-primary">
+                    <th>Краткое наименование</th>
+                    <th>Полное наименование</th>
+                    <th>Категория обрабатываемой информации</th>
+                    <th>Тип обрабатываемой информации</th>
+                </tr>
+            </thead>
+            {% for sis in sistema%}
+                <tbody>
+                    <td><a href="{{ url_for('kks.is_det', is_det = sis.id) }}">{{sis.kr_name}}</a></td> 
+                    <td>{{sis.name}}</td>
+                    <td>{{sis.kategor}}</td>
+                    <td>{{sis.tip}}</td>
+                </tbody>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{%endblock%}
+
+

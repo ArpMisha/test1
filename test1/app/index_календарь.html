@@ -1,0 +1,120 @@
+{%extends 'base.html'%}
+
+{%block title%}
+ Корпоративная сеть
+{%endblock%}
+
+{%block main%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/fullcalendar.css')}}"> 
+<script src="{{url_for('static', filename='js/jquery-ui.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/moment.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/fullcalendar.min.js')}}"></script> 
+<div class = 'container-fluid'>
+    <h1 class = "text-center mb-3">Информация по КИИ АО "Транснефть - Урал"</h1>
+    <div class = 'row'>
+        <div class = 'col-lg-12'>
+            <div class="card col-lg-12 mb-3 border-primary">
+                <div class="card-body">
+                    <h4 class="card-title">Список объектов КИИ</h4>
+                    <div class='btn-group' role='group' aria-label='Basic outlined example'>
+                        <button class="btn btn-outline-primary" type="button">План работ по ОКИИ на год</button>
+                        <button class="btn btn-outline-primary" type="button">План сканирования защищенности</button>
+                        <div class='btn-group' role='group'>
+                            <button id='btnGroupDrop6' type='button' class='btn btn-outline-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>ЗОКИИ</button>
+                            <div class='dropdown-menu' aria-labelledby='btnGroupDrop6'>
+                                <a href="{{ url_for('asutp.kii_detail', kiii = 'ТДП Уфа') }}" class="dropdown-item">ТДП Уфа</a>
+                                <a href="{{ url_for('asutp.kii_detail', kiii = 'РДП Челябинск') }}" class="dropdown-item">РДП Челябинск</a>
+                                <a href="{{ url_for('asutp.kii_detail', kiii = 'РДП Курган') }}" class="dropdown-item">РДП Курган</a>
+                                <a href="{{ url_for('asutp.kii_detail', kiii = 'РДП Нурлино') }}" class="dropdown-item">РДП Нурлино</a>
+                                <a href="{{ url_for('asutp.kii_detail', kiii = 'РДП Субханкулово') }}" class="dropdown-item">РДП Субханкулово</a>
+                                <a href="{{ url_for('asutp.kii_detail', kiii = 'РДП Калтасы') }}" class="dropdown-item">РДП Калтасы</a>
+                            </div>
+                        </div>
+                        <div class='btn-group' role='group'>
+                            <button id='btnGroupDrop1' type='button' class='btn btn-outline-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Черну</button>
+                            <div class='dropdown-menu' aria-labelledby='btnGroupDrop1'>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Улу-Теляк') }}">ЛПДС Улу-Теляк</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Кропачево') }}">ЛПДС Кропачево</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Нурлино') }}">ЛПДС Нурлино</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Черкассы') }}">ЛПДС Черкассы</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Черкассы-ПП') }}">ЛПДС Черкассы-ПП</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ПСП Уфа') }}">ПСП Уфа</a>
+                            </div>
+                        </div>
+                        <div class='btn-group' role='group'>
+                            <button id='btnGroupDrop2' type='button' class='btn btn-outline-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>ЧелНУ</button>
+                            <div class='dropdown-menu' aria-labelledby='btnGroupDrop2'>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Ленинск') }}">ЛПДС Ленинск</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Бердяуш') }}">ЛПДС Бердяуш</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Еткуль') }}">ЛПДС Еткуль</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Челябинск') }}">ЛПДС Челябинск</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Травники') }}">ЛПДС Травники</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'НПС Канаши') }}">НПС Канаши</a>
+                            </div>
+                        </div>
+                        <div class='btn-group' role='group'>
+                            <button id='btnGroupDrop3' type='button' class='btn btn-outline-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>ТНУ</button>
+                            <div class='dropdown-menu' aria-labelledby='btnGroupDrop3'>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'НПС Шкапово') }}">НПС Шкапово</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Языково') }}">ЛПДС Языково</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Салават') }}">ЛПДС Салават</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'НПС Мраково') }}">НПС Мраково</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Тюрино-ПП') }}">ЛПДС Тюрино-ПП</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'НПС Субханкулово-ПП') }}">НПС Субханкулово-ПП</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛЭПСУ Орск') }}">ЛЭПСУ Орск</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Субханкулово') }}">ЛПДС Субханкулово</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Георгиевка-ПП') }}">ЛПДС Георгиевка-ПП</a>
+                            </div>
+                        </div>
+                        <div class='btn-group' role='group'>
+                            <button id='btnGroupDrop4' type='button' class='btn btn-outline-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>АНУ</button>
+                            <div class='dropdown-menu' aria-labelledby='btnGroupDrop4'>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'НПС Чернушка') }}">НПС Чернушка</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Калтасы') }}">ЛПДС Калтасы</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Чекмагуш') }}">ЛПДС Чекмагуш</a>
+                            </div>
+                        </div>
+                        <div class='btn-group' role='group'>
+                            <button id='btnGroupDrop5' type='button' class='btn btn-outline-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>КНУ</button>
+                            <div class='dropdown-menu' aria-labelledby='btnGroupDrop5'>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Юргамыш') }}">ЛПДС Юргамыш</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Хохлы') }}">ЛПДС Хохлы</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Суслово') }}">ЛПДС Суслово</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'НПС Мишкино') }}">НПС Мишкино</a>
+                                <a class='dropdown-item' href="{{ url_for('asutp.kii_detail', kiii = 'ЛПДС Медведское') }}">ЛПДС Медведское</a> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = 'col-lg-6'>
+        
+        </div>
+    </div>
+    <br/>
+    <script>
+        $(document).ready(function() {
+            var calendar = $('#calendar').fullCalendar({
+                editable:false,
+                header:{
+                left:'prev,next today',
+                center:'title',
+                right:'month,agendaWeek,agendaDay'
+                },
+                events: [ {% for ev in eve%}
+                    { 
+                        title : " {{ev.title}} ", 
+                        start : " {{ev.start_event}} "
+                    },
+                {% endfor %}
+                ],
+            });
+        });
+    </script>
+    <div class="container">
+        <div id="calendar"></div>
+    </div>
+
+</div>
+{%endblock%}

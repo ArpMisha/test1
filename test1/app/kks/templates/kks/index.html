@@ -1,0 +1,85 @@
+{%extends 'base.html'%}
+
+{%block title%}
+ Корпоративная сеть
+{%endblock%}
+
+{%block main%}
+<div class = 'container-fluid'>
+    <h1 class = "text-center mb-3">Основные компоненты ККС</h1>
+    <div class = 'row'>
+        <div class = 'col-lg-6'>
+            <div class="card col-lg-10 mb-3 border-primary">
+                <div class="card-body">
+                    <h4 class="card-title">Список площадок</h4>
+                    <h6 class = "col-lg-8 text-center">АУП</h6>
+                    {% for x in xs%}
+                    <div class = "list-group col-lg-10">
+                        <a href="{{ url_for('kks.ploshadka_detail', plosh_detail = x.ploshadka, fil = x.filial) }}" class="list-group-item list-group-item-action list-group-item-primary">{{x.ploshadka}}</a>
+                    </div>
+                    {% endfor %}
+                    <h6 class = "col-lg-8 text-center">Арланское НУ</h6>
+                    {% for a in ans%}
+                    <div class = "list-group col-lg-10">
+                        <a href="{{ url_for('kks.ploshadka_detail', plosh_detail = a.ploshadka, fil = a.filial) }}" class="list-group-item list-group-item-action list-group-item-primary">{{a.ploshadka}}</a>
+                    </div>
+                    {% endfor %}
+                    <h6 class = "col-lg-8 text-center">Челябинское НУ</h6>
+                    {% for ch in chels%}
+                    <div class = "list-group col-lg-10">
+                        <a href="{{ url_for('kks.ploshadka_detail', plosh_detail = ch.ploshadka , fil = ch.filial) }}" class="list-group-item list-group-item-action list-group-item-primary">{{ch.ploshadka}}</a>
+                    </div>
+                    {% endfor %}
+                    <h6 class = "col-lg-8 text-center">Черекасское НУ</h6>
+                    {% for cer in cher%}
+                    <div class = "list-group col-lg-10">
+                        <a href="{{ url_for('kks.ploshadka_detail', plosh_detail = cer.ploshadka , fil = cer.filial) }}" class="list-group-item list-group-item-action list-group-item-primary">{{cer.ploshadka}}</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class = 'col-lg-6'>
+            <div class="card col-lg-10 mb-3 border-primary">
+                <div class="card-body">
+                    <h4 class="card-title">Поиск по IP</h4>
+                    <form method="GET">
+                        <div class = "form-group col-lg-8">
+                            <label for = "inputAddress">IP-адрес или HOST name</label>
+                            <input type="text" class="form-control" id = "inputAddress" placeholder="10.10.10.10 или WUS01-IVANOVII" name="q" value="{{ request.args.get('q', '') }}">
+                        </div>
+                        <div class = "btn-toolbar" role = "toolbar" aria-label = "Toolbar with button groups">
+                            <div class = "btn-group mr-3" role = "group" aria-label="1 group">
+                                <button type ="submit" class="btn btn-primary">Поиск</button>
+                            </div>
+                            <div class = "btn-group mr-3" role = "group" aria-label="2 group">
+                                <a class = "btn btn-primary" href = "{{ url_for('kks.net_create')}}" role = "button"> Добавить сеть / Добавить ИС</a>
+                            </div>
+                        </div>
+                    </form> 
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Поиск ИС</h4>
+                    <form method="GET">
+                        <div class = "form-group col-lg-8">
+                            <label for = "inputAddress3">ID номер или Краткое наименование</label>
+                            <input type="text" class="form-control" id = "inputAddress3" name="q1" value="{{ request.args.get('q1', '') }}">
+                        </div>
+                        <div class = "btn-toolbar" role = "toolbar" aria-label = "Toolbar with button groups">
+                            <div class = "btn-group mr-3" role = "group" aria-label="3 group">
+                                <button type ="submit" class="btn btn-primary">Поиск</button>
+                            </div>
+                            <!--<div class = "btn-group mr-3" role = "group" aria-label="4 group">
+                                <a class = "btn btn-primary" href = "{{ url_for('kks.net_create')}}" role = "button"> Добавить ИС</a>
+                            </div> -->
+                            <div class = "btn-group mr-3" role = "group" aria-label="5 group">
+                                <a class = "btn btn-primary" href = "{{ url_for('kks.perech_is')}}" role = "button"> Перечень ИС</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

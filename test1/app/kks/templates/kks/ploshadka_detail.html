@@ -1,0 +1,59 @@
+{%extends 'base.html'%}
+
+{%block title%}
+ Инфо по площадке
+{%endblock%}
+
+
+{%block main%}
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}" defer></script> 
+    <div class = "container-fluid">
+        <h2 class = "text-center mb-3">Информация по подсетям площадки</h2>
+        <div class="accordion" id="accordionExample">
+            {% for i in infos%}
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                  <button class="btn btn-block btn-lg text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse{{i.id}}" aria-expanded="true" aria-controls="collapse{{i.id}}"  style="background-color: #2585c9; color: azure;">
+                    {{i.subnet}}
+                  </button> 
+                </h2> 
+                <table class ="table table-bordered table-sm">
+                  <thead>
+                    <tr class="table-primary">
+                      <th>{{i.ploshadka_det}}</th>
+                      <th> VLAN --> {{i.vlan}} - {{i.vlan_name}} </th>
+                      <th>GetWay --> {{i.getway}}</th>
+                      <th>broadcast --> {{i.broadcast}} </th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div id="collapse{{i.id}}" class="collapse" aria-labelledby="heading{{i.id}}" data-parent="#accordionExample">
+                <div class="card-body">
+                  <table class ="table table-bordered table-hover table-sm">
+                    <thead>
+                        <tr class="table-primary">
+                            <th>IP-адрес</th>
+                            <th>Хост-name</th>
+                            <th>Комментарий</th>
+                        </tr>
+                    </thead>
+                    {% for ip in ips%}
+                      {% if i.subnet == ip.subnet %}
+                        <tbody>
+                            <td><a href="{{ url_for('kks.ip_detail', ip_detail = ip.id) }}">{{ip.ip}}</a></td>
+                            <td>{{ip.name}}</td>
+                            <td>{{ip.primech}}</td>
+                        </tbody>
+                      {% endif %}
+                    {% endfor %}
+                  </table>
+                </div>
+              </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{%endblock%}

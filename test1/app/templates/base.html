@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+
+    <!-- спрятать из базового шаблона ссылки на скрипты-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}" defer></script>
+    
+    <script src="{{url_for('static', filename='js/popper.min.js')}}" async></script>
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script> 
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Chart.min.css')}}"> 
+    <script src="{{url_for('static', filename='js/Chart.min.js')}}" defer></script> 
+    
+    {%block script%} {%endblock%}
+    
+
+    <title> {%block title%} {%endblock%} | OIB </title>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2585c9;">
+        <a class="navbar-brand" href="{{url_for('index')}}"><img alt = "Транснефть" src="{{url_for('static', filename='img/01.jpg')}}" style="width: 60px; height: 60px; border-radius: 100px; border: 2px solid rgb(3, 85, 209); box-shadow: 0 0 7px #666;"/></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{url_for('index')}}">Главная <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('kks.index')}}">ККС</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('asutp.index')}}">АСУТП</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+  </header>
+  {%block main%}   {%endblock%}
+
+ <!-- <footer style="background-color: #71baee;">
+    <div class = 'container'>
+        <div class = "d-flex justify-content-between">
+          <div class = "footer-left">
+            <p>Тест каталог Flask</p>
+          </div>
+          <div class = "footer-right">
+            <p>OIB</p>
+          </div>
+        </div>
+    </div> 
+  </footer> -->  
+</body>
+</html>
